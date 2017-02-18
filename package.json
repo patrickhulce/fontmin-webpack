@@ -1,0 +1,59 @@
+{
+  "name": "fontmin-webpack",
+  "version": "0.0.0",
+  "description": "Minifies icon fonts to just what is used.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "start": "webpack --config test/fixtures/webpack.config.js",
+    "start:debug": "node --inspect --debug-brk ./node_modules/.bin/webpack --config test/fixtures/webpack.config.js",
+    "test": "xo ./lib/**/*.js && mocha --reporter spec --require test/bootstrap test/*.test.js test/**/*.test.js",
+    "test:lint": "xo ./lib/**/*.js",
+    "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --require test/bootstrap test/*.test.js test/**/*.test.js",
+    "test:watch": "mocha --watch --reporter dot --require test/bootstrap test/*.test.js test/**/*.test.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickhulce/fontmin-webpack.git"
+  },
+  "author": "Patrick Hulce <patrick.hulce@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrickhulce/fontmin-webpack/issues"
+  },
+  "homepage": "https://github.com/patrickhulce/fontmin-webpack#readme",
+  "xo": {
+    "env": [
+      "node",
+      "mocha"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "fontmin": "^0.9.6",
+    "lodash": "^4.17.4",
+    "ttf2woff2": "^2.0.3",
+    "webpack-sources": "^0.1.4"
+  },
+  "peerDependencies": {
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "css-loader": "^0.26.1",
+    "cz-conventional-changelog": "^1.2.0",
+    "extract-text-webpack-plugin": "v2.0.0-rc.3",
+    "file-loader": "^0.10.0",
+    "font-awesome": "^4.7.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "semantic-release": "^6.3.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1",
+    "xo": "github:patrickhulce/xo#master"
+  }
+}
