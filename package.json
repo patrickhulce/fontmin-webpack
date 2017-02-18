@@ -6,10 +6,11 @@
   "scripts": {
     "start": "webpack --config test/fixtures/webpack.config.js",
     "start:debug": "node --inspect --debug-brk ./node_modules/.bin/webpack --config test/fixtures/webpack.config.js",
-    "test": "xo ./lib/**/*.js && mocha --reporter spec --require test/bootstrap test/*.test.js test/**/*.test.js",
-    "test:lint": "xo ./lib/**/*.js",
-    "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --require test/bootstrap test/*.test.js test/**/*.test.js",
-    "test:watch": "mocha --watch --reporter dot --require test/bootstrap test/*.test.js test/**/*.test.js",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "xo ./lib/**/*.js ./test/*.js",
+    "test:unit": "mocha --reporter spec test/*.test.js test/**/*.test.js",
+    "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- test/*.test.js test/**/*.test.js",
+    "test:watch": "mocha --watch --reporter dot test/*.test.js test/**/*.test.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -26,7 +27,10 @@
     "env": [
       "node",
       "mocha"
-    ]
+    ],
+    "rules": {
+      "promise/no-callback-in-promise": 0
+    }
   },
   "config": {
     "commitizen": {
