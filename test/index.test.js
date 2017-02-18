@@ -1,23 +1,15 @@
 const fs = require('fs')
 const path = require('path')
+
 const _ = require('lodash')
+const rimraf = require('rimraf')
 const expect = require('chai').expect
 const webpack = require('webpack')
 const Plugin = require('../lib')
 
 describe('FontminPlugin', function () {
   let fontStats
-  const baseConfig = {
-    entry: `${__dirname}/fixtures/entry.js`,
-    output: {filename: 'out.js', path: `${__dirname}/dist`},
-    module: {
-      rules: [
-        {test: /\.(woff|woff2)(\?v=.+)?$/, use: ['file-loader']},
-        {test: /\.(svg|ttf|eot)(\?v=.+)?$/, use: ['file-loader']},
-        {test: /\.css$/, use: ['style-loader', 'css-loader'], include: __dirname},
-      ],
-    },
-  }
+  const baseConfig = require('./fixtures/webpack.config.js')
 
   function collectFontStats(stats) {
     return _.keys(stats.compilation.assets)
@@ -48,6 +40,8 @@ describe('FontminPlugin', function () {
       const config = _.cloneDeep(baseConfig)
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
     })
+
+    after(done => rimraf('fixtures/dist', done))
 
     it('should minify eot', () => {
       const eot = _.find(fontStats, {extension: '.eot'})
