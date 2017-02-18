@@ -24,7 +24,6 @@
   "homepage": "https://github.com/patrickhulce/fontmin-webpack#readme",
   "xo": {
     "env": [
-      "browser",
       "node",
       "mocha"
     ]
