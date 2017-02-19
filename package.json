@@ -7,7 +7,7 @@
     "start": "webpack --config test/fixtures/webpack.config.js",
     "start:debug": "node --inspect --debug-brk ./node_modules/.bin/webpack --config test/fixtures/webpack.config.js",
     "test": "npm run test:lint && npm run test:unit",
-    "test:lint": "xo ./lib/**/*.js ./test/*.js",
+    "test:lint": "xo './lib/**/*.js' './test/**/*.test.js'",
     "test:unit": "mocha --reporter spec test/*.test.js test/**/*.test.js",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- test/*.test.js test/**/*.test.js",
     "test:watch": "mocha --watch --reporter dot test/*.test.js test/**/*.test.js",
