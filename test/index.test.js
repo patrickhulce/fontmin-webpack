@@ -17,7 +17,7 @@ describe('FontminPlugin', function () {
         return {
           filename,
           extension: path.extname(filename),
-          stats: fs.statSync(`${__dirname}/dist/${filename}`),
+          stats: fs.statSync(`${__dirname}/fixtures/dist/${filename}`),
         }
       })
       .filter(item => item.extension !== '.js')
