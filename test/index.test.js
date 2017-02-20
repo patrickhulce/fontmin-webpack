@@ -35,7 +35,8 @@ describe('FontminPlugin', function () {
   }
 
   describe('FontAwesome micro', function () {
-    before(done => {
+    before(function (done) {
+      this.timeout(10000)
       const plugin = new Plugin({glyphs: '\uf0c7'})
       const config = _.cloneDeep(baseConfig)
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
