@@ -7,17 +7,27 @@ const expect = require('chai').expect
 const webpack = require('webpack')
 const Plugin = require('../lib')
 
+const DIST_FOLDER = path.join(__dirname, 'fixtures/dist/')
+const FONT_AWESOME_FOLDER = path.join(__dirname, '../node_modules/font-awesome')
+
 describe('FontminPlugin', function () {
   let fontStats
   const baseConfig = require('./fixtures/webpack.config.js')
+  const originalStats = collectFontStats(FONT_AWESOME_FOLDER + '/fonts', {
+    'fontawesome-webfont.eot': true,
+    'fontawesome-webfont.ttf': true,
+    'fontawesome-webfont.svg': true,
+    'fontawesome-webfont.woff': true,
+    'fontawesome-webfont.woff2': true,
+  })
 
-  function collectFontStats(stats) {
-    return _.keys(stats.compilation.assets)
+  function collectFontStats(directory, files) {
+    return _.keys(files)
       .map(filename => {
         return {
           filename,
           extension: path.extname(filename),
-          stats: fs.statSync(`${__dirname}/fixtures/dist/${filename}`),
+          stats: fs.statSync(`${directory}/${filename}`),
         }
       })
       .filter(item => item.extension !== '.js')
@@ -28,7 +38,7 @@ describe('FontminPlugin', function () {
       if (err) {
         done(err)
       } else {
-        fontStats = collectFontStats(stats)
+        fontStats = collectFontStats(DIST_FOLDER, stats.compilation.assets)
         done()
       }
     })
@@ -37,7 +47,7 @@ describe('FontminPlugin', function () {
   describe('FontAwesome micro', function () {
     before(function (done) {
       this.timeout(10000)
-      const plugin = new Plugin({glyphs: '\uf0c7'})
+      const plugin = new Plugin({autodetect: false, glyphs: '\uf0c7'})
       const config = _.cloneDeep(baseConfig)
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
     })
@@ -67,6 +77,23 @@ describe('FontminPlugin', function () {
     it('should minify woff2', () => {
       const woff2 = _.find(fontStats, {extension: '.woff2'})
       expect(woff2).to.have.deep.property('stats.size').greaterThan(500).lessThan(1000)
+    })
+  })
+
+  describe('FontAwesome full', function () {
+    before(function (done) {
+      this.timeout(20000)
+      const plugin = new Plugin({autodetect: true})
+      const config = _.cloneDeep(baseConfig)
+      testWithConfig(_.assign(config, {plugins: [plugin]}), done)
+    })
+
+    after(done => rimraf('fixtures/dist', done))
+
+    it('should not replace with a larger version', () => {
+      const svg = _.find(fontStats, {extension: '.svg'})
+      const svgOriginal = _.find(originalStats, {extension: '.svg'})
+      expect(svg).to.have.deep.property('stats.size', svgOriginal.stats.size)
     })
   })
 })
