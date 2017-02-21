@@ -82,7 +82,7 @@ describe('FontminPlugin', function () {
 
   describe('FontAwesome full', function () {
     before(function (done) {
-      this.timeout(20000)
+      this.timeout(60000)
       const plugin = new Plugin({autodetect: true})
       const config = _.cloneDeep(baseConfig)
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
