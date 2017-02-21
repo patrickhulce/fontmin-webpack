@@ -10,6 +10,7 @@ node_js:
 before_install:
   - npm install -g coveralls
 script:
+  - npm run start
   - npm run test:lint
   - npm run test:coverage
 after_success:
