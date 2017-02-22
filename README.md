@@ -5,24 +5,23 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Dependencies](https://david-dm.org/patrickhulce/fontmin-webpack.svg)](https://david-dm.org/patrickhulce/fontmin-webpack)
 
-Minifies icon fonts to just what is used.
+Minifies icon fonts to just what is used. Works best when paired with a CSS removal plugin such as [nukecss-webpack](https://github.com/patrickhulce/nukecss-webpack).
 
 ## How It Works
 
 * Examines your webpack output assets to identify font formats that have the same name
+* Identifies CSS rules that specify a content property and extracts unicode characters
 * Uses `fontmin` to minify the TrueType font to only the used glyphs
 * Converts the ttf back to all other formats (supports `ttf`, `eot`, `svg`, `woff`, and `woff2` although you should really only need to care about [woff](http://caniuse.com/#search=woff))
 * Replaces the webpack output asset with the minified version
 
 ## Usage
 
-**WARNING: This is still a work-in-progress and usage is fairly manual**
-
 #### Install fontmin-webpack
 `npm install --save-dev fontmin-webpack`
 
 
-#### Examine Your Used Font Glyphs
+#### Include Your Icon Font
 The example below uses glyphs `\uf0c7` and `\uf0ce`
 ```css
 @font-face {
@@ -33,11 +32,14 @@ The example below uses glyphs `\uf0c7` and `\uf0ce`
     url('fontawesome-webfont.ttf') format('ttf');
 }
 
+/**
+ * Remove other unused icons from the file.
+ * Or use another plugin like nukecss-webpack to remove unused rules automatically.
+ */
 .fa-save:before,
 .fa-floppy-o:before {
   content: "\f0c7";
 }
-/* ... */
 .fa-table:before {
   content: "\f0ce";
 }
@@ -54,7 +56,10 @@ module.exports = {
   },
   plugins: [
     // ...
-    new FontminPlugin({glyphs: ['\uf0c7', '\uf0ce']})
+    new FontminPlugin({
+      autodetect: true, // automatically pull unicode characters from CSS
+      glyphs: ['\uf0c8', /* extra glyphs to include */]
+    })
   ],
 }
 ```
@@ -62,23 +67,22 @@ module.exports = {
 #### Save Bytes
 **Before**
 ```
-674f50d287a8c48dc19ba404d20fe713.eot   166 kB          [emitted]
-912ec66d7572ff821749319396470bde.svg   444 kB          [emitted]  [big]
-b06871f281fee6b241d60582ae9369b9.ttf   166 kB          [emitted]
+674f50d287a8c48dc19ba404d20fe713.eot     166 kB          [emitted]
+912ec66d7572ff821749319396470bde.svg     444 kB          [emitted]  [big]
+b06871f281fee6b241d60582ae9369b9.ttf     166 kB          [emitted]
 af7ae505a9eed503f8b8e6982036873e.woff2  77.2 kB          [emitted]
-fee66e712a8a08eef5805a46892932ad.woff    98 kB          [emitted]
+fee66e712a8a08eef5805a46892932ad.woff     98 kB          [emitted]
 ```
 **After**
 ```
-674f50d287a8c48dc19ba404d20fe713.eot  2.82 kB          [emitted]
-912ec66d7572ff821749319396470bde.svg  2.88 kB          [emitted]
-b06871f281fee6b241d60582ae9369b9.ttf  2.64 kB          [emitted]
+674f50d287a8c48dc19ba404d20fe713.eot    2.82 kB          [emitted]
+912ec66d7572ff821749319396470bde.svg    2.88 kB          [emitted]
+b06871f281fee6b241d60582ae9369b9.ttf    2.64 kB          [emitted]
 af7ae505a9eed503f8b8e6982036873e.woff2  1.01 kB          [emitted]
-fee66e712a8a08eef5805a46892932ad.woff  2.72 kB          [emitted]
+fee66e712a8a08eef5805a46892932ad.woff   2.72 kB          [emitted]
 ```
 
 ## Limitations
 
 * Fonts must be loaded with `file-loader`
 * Fonts must have the same name as the TrueType version of the font.
-* Used glyphs must be manually specified
