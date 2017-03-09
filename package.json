@@ -55,6 +55,7 @@
     "font-awesome": "^4.7.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "nukecss-webpack": "^1.0.0",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
     "style-loader": "^0.13.1",
