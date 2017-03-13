@@ -13,6 +13,7 @@ const FONT_AWESOME_FOLDER = path.join(__dirname, '../node_modules/font-awesome')
 describe('FontminPlugin', function () {
   let fontStats
   const baseConfig = require('./fixtures/webpack.config.js')
+  const baseExtractConfig = require('./fixtures/webpack.extract-text.config.js')
   const originalStats = collectFontStats(FONT_AWESOME_FOLDER + '/fonts', {
     'fontawesome-webfont.eot': true,
     'fontawesome-webfont.ttf': true,
@@ -24,10 +25,12 @@ describe('FontminPlugin', function () {
   function collectFontStats(directory, files) {
     return _.keys(files)
       .map(filename => {
+        const filePath = `${directory}/${filename}`
         return {
           filename,
+          filePath,
           extension: path.extname(filename),
-          stats: fs.statSync(`${directory}/${filename}`),
+          stats: fs.statSync(filePath),
         }
       })
       .filter(item => item.extension !== '.js')
@@ -80,6 +83,23 @@ describe('FontminPlugin', function () {
     })
   })
 
+  describe('FontAwesome inferred', function () {
+    before(function (done) {
+      this.timeout(60000)
+      testWithConfig(baseConfig, done)
+    })
+
+    after(done => rimraf('fixtures/dist', done))
+
+    it('should contain the right glyphs', () => {
+      const svg = _.find(fontStats, {extension: '.svg'})
+      const contents = fs.readFileSync(svg.filePath, 'utf8')
+      expect(contents).to.not.match(/glyph-name="heart"/)
+      expect(contents).to.match(/glyph-name="table"/)
+      expect(contents).to.match(/glyph-name="film"/)
+    })
+  })
+
   describe('FontAwesome full', function () {
     before(function (done) {
       this.timeout(60000)
@@ -94,6 +114,23 @@ describe('FontminPlugin', function () {
       const svg = _.find(fontStats, {extension: '.svg'})
       const svgOriginal = _.find(originalStats, {extension: '.svg'})
       expect(svg).to.have.deep.property('stats.size', svgOriginal.stats.size)
+    })
+  })
+
+  describe('FontAwesome with ExtractTextPlugin', function () {
+    before(function (done) {
+      this.timeout(60000)
+      testWithConfig(baseExtractConfig, done)
+    })
+
+    after(done => rimraf('fixtures/dist', done))
+
+    it('should contain the right glyphs', () => {
+      const svg = _.find(fontStats, {extension: '.svg'})
+      const contents = fs.readFileSync(svg.filePath, 'utf8')
+      expect(contents).to.not.match(/glyph-name="heart"/)
+      expect(contents).to.match(/glyph-name="table"/)
+      expect(contents).to.match(/glyph-name="film"/)
     })
   })
 })
