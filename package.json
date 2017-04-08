@@ -8,7 +8,7 @@
     "start:extract-text": "webpack --config test/fixtures/webpack.extract-text.config.js",
     "start:debug": "node --inspect --debug-brk ./node_modules/.bin/webpack --config test/fixtures/webpack.config.js",
     "test": "npm run test:lint && npm run test:unit",
-    "test:lint": "xo './lib/**/*.js' './test/**/*.test.js'",
+    "test:lint": "lint",
     "test:unit": "mocha --reporter spec test/*.test.js test/**/*.test.js",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- test/*.test.js test/**/*.test.js",
     "test:watch": "mocha --watch --reporter dot test/*.test.js test/**/*.test.js",
@@ -48,6 +48,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
+    "@patritech/lint": "^1.2.3",
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
     "cz-conventional-changelog": "^1.2.0",
@@ -61,7 +62,6 @@
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.1",
-    "xo": "github:patrickhulce/xo#master"
+    "webpack": "^2.2.1"
   }
 }

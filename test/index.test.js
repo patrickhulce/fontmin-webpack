@@ -10,7 +10,7 @@ const Plugin = require('../lib')
 const DIST_FOLDER = path.join(__dirname, 'fixtures/dist/')
 const FONT_AWESOME_FOLDER = path.join(__dirname, '../node_modules/font-awesome')
 
-describe('FontminPlugin', function () {
+describe('FontminPlugin', () => {
   let fontStats
   const baseConfig = require('./fixtures/webpack.config.js')
   const baseExtractConfig = require('./fixtures/webpack.extract-text.config.js')
@@ -47,10 +47,10 @@ describe('FontminPlugin', function () {
     })
   }
 
-  describe('FontAwesome micro', function () {
+  describe('FontAwesome micro', () => {
     before(function (done) {
       this.timeout(10000)
-      const plugin = new Plugin({autodetect: false, glyphs: '\uf0c7'})
+      const plugin = new Plugin({autodetect: false, glyphs: '\uF0C7'})
       const config = _.cloneDeep(baseConfig)
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
     })
@@ -83,7 +83,7 @@ describe('FontminPlugin', function () {
     })
   })
 
-  describe('FontAwesome inferred', function () {
+  describe('FontAwesome inferred', () => {
     before(function (done) {
       this.timeout(60000)
       testWithConfig(baseConfig, done)
@@ -100,7 +100,7 @@ describe('FontminPlugin', function () {
     })
   })
 
-  describe('FontAwesome full', function () {
+  describe('FontAwesome full', () => {
     before(function (done) {
       this.timeout(60000)
       const plugin = new Plugin({autodetect: true})
@@ -117,7 +117,7 @@ describe('FontminPlugin', function () {
     })
   })
 
-  describe('FontAwesome with ExtractTextPlugin', function () {
+  describe('FontAwesome with ExtractTextPlugin', () => {
     before(function (done) {
       this.timeout(60000)
       testWithConfig(baseExtractConfig, done)
