@@ -4,6 +4,9 @@
   content: "\f009";
 }
 
+.my-compressed-css{content:'\F00C'}
+.my-other-compressed-css{content:"\F00D"}
+
 .entry {
   background: white;
 }

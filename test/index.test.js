@@ -36,19 +36,31 @@ describe('FontminPlugin', () => {
       .filter(item => item.extension !== '.js')
   }
 
+  function getGlyphs() {
+    const svg = _.find(fontStats, {extension: '.svg'})
+    const contents = fs.readFileSync(svg.filePath, 'utf8')
+    const matchedContents = contents.match(/glyph-name="(.*?)"/g)
+    const getGlyphName = s => s.slice('glyph-name="'.length, s.length - 1)
+    return matchedContents.map(getGlyphName)
+  }
+
   function testWithConfig(config, done) {
     webpack(config, (err, stats) => {
-      if (err) {
+      try {
+        if (err) {
+          done(err)
+        } else {
+          fontStats = collectFontStats(DIST_FOLDER, stats.compilation.assets)
+          done()
+        }
+      } catch (err) {
         done(err)
-      } else {
-        fontStats = collectFontStats(DIST_FOLDER, stats.compilation.assets)
-        done()
       }
     })
   }
 
   describe('FontAwesome micro', () => {
-    before(function (done) {
+    it('should run successfully', function (done) {
       this.timeout(10000)
       const plugin = new Plugin({autodetect: false, glyphs: '\uF0C7'})
       const config = _.cloneDeep(baseConfig)
@@ -84,7 +96,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome inferred', () => {
-    before(function (done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       testWithConfig(baseConfig, done)
     })
@@ -92,16 +104,17 @@ describe('FontminPlugin', () => {
     after(done => rimraf('fixtures/dist', done))
 
     it('should contain the right glyphs', () => {
-      const svg = _.find(fontStats, {extension: '.svg'})
-      const contents = fs.readFileSync(svg.filePath, 'utf8')
-      expect(contents).to.not.match(/glyph-name="heart"/)
-      expect(contents).to.match(/glyph-name="table"/)
-      expect(contents).to.match(/glyph-name="film"/)
+      const glyphs = getGlyphs()
+      expect(glyphs).to.not.contain('heart')
+      expect(glyphs).to.contain('table')
+      expect(glyphs).to.contain('film')
+      expect(glyphs).to.contain('ok')
+      expect(glyphs).to.contain('remove')
     })
   })
 
   describe('FontAwesome full', () => {
-    before(function (done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       const plugin = new Plugin({autodetect: true})
       const config = _.cloneDeep(baseConfig)
@@ -118,7 +131,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome with ExtractTextPlugin', () => {
-    before(function (done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       testWithConfig(baseExtractConfig, done)
     })
@@ -126,11 +139,12 @@ describe('FontminPlugin', () => {
     after(done => rimraf('fixtures/dist', done))
 
     it('should contain the right glyphs', () => {
-      const svg = _.find(fontStats, {extension: '.svg'})
-      const contents = fs.readFileSync(svg.filePath, 'utf8')
-      expect(contents).to.not.match(/glyph-name="heart"/)
-      expect(contents).to.match(/glyph-name="table"/)
-      expect(contents).to.match(/glyph-name="film"/)
+      const glyphs = getGlyphs()
+      expect(glyphs).to.not.contain('heart')
+      expect(glyphs).to.contain('table')
+      expect(glyphs).to.contain('film')
+      expect(glyphs).to.contain('ok')
+      expect(glyphs).to.contain('remove')
     })
   })
 })

@@ -39,6 +39,7 @@
     }
   },
   "dependencies": {
+    "debug": "^2.6.3",
     "fontmin": "^0.9.6",
     "lodash": "^4.17.4",
     "ttf2woff2": "^2.0.3",
