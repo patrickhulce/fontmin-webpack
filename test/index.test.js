@@ -67,7 +67,7 @@ describe('FontminPlugin', () => {
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
     })
 
-    after(done => rimraf('fixtures/dist', done))
+    after(done => rimraf(DIST_FOLDER, done))
 
     it('should minify eot', () => {
       const eot = _.find(fontStats, {extension: '.eot'})
@@ -101,7 +101,7 @@ describe('FontminPlugin', () => {
       testWithConfig(baseConfig, done)
     })
 
-    after(done => rimraf('fixtures/dist', done))
+    after(done => rimraf(DIST_FOLDER, done))
 
     it('should contain the right glyphs', () => {
       const glyphs = getGlyphs()
@@ -121,7 +121,7 @@ describe('FontminPlugin', () => {
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
     })
 
-    after(done => rimraf('fixtures/dist', done))
+    after(done => rimraf(DIST_FOLDER, done))
 
     it('should not replace with a larger version', () => {
       const svg = _.find(fontStats, {extension: '.svg'})
@@ -136,7 +136,7 @@ describe('FontminPlugin', () => {
       testWithConfig(baseExtractConfig, done)
     })
 
-    after(done => rimraf('fixtures/dist', done))
+    after(done => rimraf(DIST_FOLDER, done))
 
     it('should contain the right glyphs', () => {
       const glyphs = getGlyphs()
