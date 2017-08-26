@@ -39,30 +39,30 @@
     }
   },
   "dependencies": {
-    "debug": "^2.6.3",
+    "debug": "^3.0.1",
     "fontmin": "^0.9.6",
     "lodash": "^4.17.4",
     "ttf2woff2": "^2.0.3",
-    "webpack-sources": "^0.1.4"
+    "webpack-sources": "^1.0.1"
   },
   "peerDependencies": {
     "webpack": "^2.2.1"
   },
   "devDependencies": {
     "@patritech/lint": "^1.2.3",
-    "chai": "^3.5.0",
-    "css-loader": "^0.26.1",
-    "cz-conventional-changelog": "^1.2.0",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.10.0",
+    "chai": "^4.1.1",
+    "css-loader": "^0.28.5",
+    "cz-conventional-changelog": "^2.0.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
     "font-awesome": "^4.7.0",
     "html-webpack-plugin": "^2.28.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nukecss-webpack": "^1.0.0",
     "rimraf": "^2.5.4",
-    "semantic-release": "^6.3.2",
-    "style-loader": "^0.13.1",
-    "webpack": "^2.2.1"
+    "semantic-release": "^7.0.2",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.5"
   }
 }

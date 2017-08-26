@@ -71,27 +71,27 @@ describe('FontminPlugin', () => {
 
     it('should minify eot', () => {
       const eot = _.find(fontStats, {extension: '.eot'})
-      expect(eot).to.have.deep.property('stats.size').greaterThan(500).lessThan(2400)
+      expect(eot.stats.size).to.be.greaterThan(500).lessThan(2400)
     })
 
     it('should minify svg', () => {
       const svg = _.find(fontStats, {extension: '.svg'})
-      expect(svg).to.have.deep.property('stats.size').greaterThan(500).lessThan(2000)
+      expect(svg.stats.size).to.be.greaterThan(500).lessThan(2000)
     })
 
     it('should minify tff', () => {
       const ttf = _.find(fontStats, {extension: '.ttf'})
-      expect(ttf).to.have.deep.property('stats.size').greaterThan(500).lessThan(2200)
+      expect(ttf.stats.size).to.be.greaterThan(500).lessThan(2200)
     })
 
     it('should minify woff', () => {
       const woff = _.find(fontStats, {extension: '.woff'})
-      expect(woff).to.have.deep.property('stats.size').greaterThan(500).lessThan(2300)
+      expect(woff.stats.size).to.be.greaterThan(500).lessThan(2300)
     })
 
     it('should minify woff2', () => {
       const woff2 = _.find(fontStats, {extension: '.woff2'})
-      expect(woff2).to.have.deep.property('stats.size').greaterThan(500).lessThan(1000)
+      expect(woff2.stats.size).to.be.greaterThan(500).lessThan(1000)
     })
   })
 
@@ -126,7 +126,7 @@ describe('FontminPlugin', () => {
     it('should not replace with a larger version', () => {
       const svg = _.find(fontStats, {extension: '.svg'})
       const svgOriginal = _.find(originalStats, {extension: '.svg'})
-      expect(svg).to.have.deep.property('stats.size', svgOriginal.stats.size)
+      expect(svg.stats.size).to.equal(svgOriginal.stats.size)
     })
   })
 
