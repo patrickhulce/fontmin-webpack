@@ -86,3 +86,4 @@ fee66e712a8a08eef5805a46892932ad.woff   2.72 kB          [emitted]
 
 * Fonts must be loaded with `file-loader`
 * Fonts must have the same name as the TrueType version of the font.
+* Font file names are not changed by different used glyph sets ([See #8](https://github.com/patrickhulce/fontmin-webpack/issues/8))
