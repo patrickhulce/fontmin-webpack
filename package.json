@@ -23,15 +23,6 @@
     "url": "https://github.com/patrickhulce/fontmin-webpack/issues"
   },
   "homepage": "https://github.com/patrickhulce/fontmin-webpack#readme",
-  "xo": {
-    "env": [
-      "node",
-      "mocha"
-    ],
-    "rules": {
-      "promise/no-callback-in-promise": 0
-    }
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -48,7 +39,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
-    "@patritech/lint": "^1.2.3",
+    "@patrickhulce/lint": "^2.1.3",
     "chai": "^4.1.1",
     "css-loader": "^0.28.5",
     "cz-conventional-changelog": "^2.0.0",
