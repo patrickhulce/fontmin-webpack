@@ -1,4 +1,5 @@
 # fontmin-webpack
+
 [![NPM Package](https://badge.fury.io/js/fontmin-webpack.svg)](https://www.npmjs.com/package/fontmin-webpack)
 [![Build Status](https://travis-ci.org/patrickhulce/fontmin-webpack.svg?branch=master)](https://travis-ci.org/patrickhulce/fontmin-webpack)
 [![Coverage Status](https://coveralls.io/repos/github/patrickhulce/fontmin-webpack/badge.svg?branch=master)](https://coveralls.io/github/patrickhulce/fontmin-webpack?branch=master)
@@ -7,29 +8,37 @@
 
 Minifies icon fonts to just what is used. Works best when paired with a CSS removal plugin such as [nukecss-webpack](https://github.com/patrickhulce/nukecss-webpack).
 
+```bash
+# for webpack 4
+npm install --save-dev fontmin-webpack
+# for webpack <=3
+npm install --save-dev fontmin-webpack@^1.0.2
+```
+
 ## How It Works
 
-* Examines your webpack output assets to identify font formats that have the same name
-* Identifies CSS rules that specify a content property and extracts unicode characters
-* Uses `fontmin` to minify the TrueType font to only the used glyphs
-* Converts the ttf back to all other formats (supports `ttf`, `eot`, `svg`, `woff`, and `woff2` although you should really only need to care about [woff](http://caniuse.com/#search=woff))
-* Replaces the webpack output asset with the minified version
+- Examines your webpack output assets to identify font formats that have the same name
+- Identifies CSS rules that specify a content property and extracts unicode characters
+- Uses `fontmin` to minify the TrueType font to only the used glyphs
+- Converts the ttf back to all other formats (supports `ttf`, `eot`, `svg`, `woff`, and `woff2` although you should really only need to care about [woff](http://caniuse.com/#search=woff))
+- Replaces the webpack output asset with the minified version
 
 ## Usage
 
 #### Install fontmin-webpack
+
 `npm install --save-dev fontmin-webpack`
 
-
 #### Include Your Icon Font
+
 The example below uses glyphs `\uf0c7` and `\uf0ce`
+
 ```css
 @font-face {
   font-family: 'FontAwesome';
-  src: url('fontawesome-webfont.eot') format('embedded-opentype'),
-    url('fontawesome-webfont.woff2') format('woff2'),
-    url('fontawesome-webfont.woff') format('woff'),
-    url('fontawesome-webfont.ttf') format('ttf');
+  src: url('fontawesome-webfont.eot') format('embedded-opentype'), url('fontawesome-webfont.woff2')
+      format('woff2'), url('fontawesome-webfont.woff') format('woff'), url('fontawesome-webfont.ttf')
+      format('ttf');
 }
 
 /**
@@ -38,14 +47,15 @@ The example below uses glyphs `\uf0c7` and `\uf0ce`
  */
 .fa-save:before,
 .fa-floppy-o:before {
-  content: "\f0c7";
+  content: '\f0c7';
 }
 .fa-table:before {
-  content: "\f0ce";
+  content: '\f0ce';
 }
 ```
 
 #### Setup Your Webpack Configuration
+
 ```js
 const FontminPlugin = require('fontmin-webpack')
 
@@ -58,14 +68,16 @@ module.exports = {
     // ...
     new FontminPlugin({
       autodetect: true, // automatically pull unicode characters from CSS
-      glyphs: ['\uf0c8', /* extra glyphs to include */]
-    })
+      glyphs: ['\uf0c8' /* extra glyphs to include */],
+    }),
   ],
 }
 ```
 
 #### Save Bytes
+
 **Before**
+
 ```
 674f50d287a8c48dc19ba404d20fe713.eot     166 kB          [emitted]
 912ec66d7572ff821749319396470bde.svg     444 kB          [emitted]  [big]
@@ -73,7 +85,9 @@ b06871f281fee6b241d60582ae9369b9.ttf     166 kB          [emitted]
 af7ae505a9eed503f8b8e6982036873e.woff2  77.2 kB          [emitted]
 fee66e712a8a08eef5805a46892932ad.woff     98 kB          [emitted]
 ```
+
 **After**
+
 ```
 674f50d287a8c48dc19ba404d20fe713.eot    2.82 kB          [emitted]
 912ec66d7572ff821749319396470bde.svg    2.88 kB          [emitted]
@@ -84,6 +98,6 @@ fee66e712a8a08eef5805a46892932ad.woff   2.72 kB          [emitted]
 
 ## Limitations
 
-* Fonts must be loaded with `file-loader`
-* Fonts must have the same name as the TrueType version of the font.
-* Font file names are not changed by different used glyph sets ([See #8](https://github.com/patrickhulce/fontmin-webpack/issues/8))
+- Fonts must be loaded with `file-loader`
+- Fonts must have the same name as the TrueType version of the font.
+- Font file names are not changed by different used glyph sets ([See #8](https://github.com/patrickhulce/fontmin-webpack/issues/8))
