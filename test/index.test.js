@@ -138,6 +138,31 @@ describe('FontminPlugin', () => {
 
     after(done => rimraf(DIST_FOLDER, done))
 
+    it('should minify eot', () => {
+      const eot = _.find(fontStats, {extension: '.eot'})
+      expect(eot.stats.size).to.be.greaterThan(500).lessThan(7000)
+    })
+
+    it('should minify svg', () => {
+      const svg = _.find(fontStats, {extension: '.svg'})
+      expect(svg.stats.size).to.be.greaterThan(500).lessThan(7000)
+    })
+
+    it('should minify tff', () => {
+      const ttf = _.find(fontStats, {extension: '.ttf'})
+      expect(ttf.stats.size).to.be.greaterThan(500).lessThan(7000)
+    })
+
+    it('should minify woff', () => {
+      const woff = _.find(fontStats, {extension: '.woff'})
+      expect(woff.stats.size).to.be.greaterThan(500).lessThan(7000)
+    })
+
+    it('should minify woff2', () => {
+      const woff2 = _.find(fontStats, {extension: '.woff2'})
+      expect(woff2.stats.size).to.be.greaterThan(500).lessThan(7000)
+    })
+
     it('should contain the right glyphs', () => {
       const glyphs = getGlyphs()
       expect(glyphs).to.not.contain('heart')
