@@ -1,4 +1,5 @@
 require('./entry.css')
+require('./not-a-font.svg')
 
 const classes = {
   'fa-table': true,
@@ -13,3 +14,4 @@ function later() {
 }
 
 console.log(classes)
+setTimeout(later, 1000)
