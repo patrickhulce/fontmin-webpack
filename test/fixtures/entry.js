@@ -1,5 +1,4 @@
 require('./entry.css')
-require('./not-a-font.svg')
 
 const classes = {
   'fa-table': true,
