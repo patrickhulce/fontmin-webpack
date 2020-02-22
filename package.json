@@ -31,7 +31,7 @@
     "debug": "^3.0.1",
     "fontmin": "^0.9.6",
     "lodash": "^4.17.4",
-    "ttf2woff2": "^2.0.3",
+    "ttf2woff2": "^3.0.0",
     "webpack-sources": "^1.0.1"
   },
   "peerDependencies": {
