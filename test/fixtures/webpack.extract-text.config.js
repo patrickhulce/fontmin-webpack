@@ -1,5 +1,4 @@
 const FontminPlugin = require('../../lib')
-const NukecssPlugin = require('nukecss-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -18,7 +17,6 @@ module.exports = {
       filename: 'out.css',
       allChunks: true,
     }),
-    new NukecssPlugin(),
     new HtmlWebpackPlugin(),
     new FontminPlugin(),
   ],

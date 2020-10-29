@@ -1,5 +1,4 @@
 const FontminPlugin = require('../../lib')
-const NukecssPlugin = require('nukecss-webpack')
 
 module.exports = {
   entry: `${__dirname}/entry.js`,
@@ -11,8 +10,5 @@ module.exports = {
       {test: /\.css$/, use: ['style-loader', 'css-loader'], include: __dirname},
     ],
   },
-  plugins: [
-    new NukecssPlugin(),
-    new FontminPlugin(),
-  ]
+  plugins: [new FontminPlugin()],
 }

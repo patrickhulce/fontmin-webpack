@@ -60,7 +60,7 @@ describe('FontminPlugin', () => {
   }
 
   describe('FontAwesome micro', () => {
-    it('should run successfully', function (done) {
+    it('should run successfully', function(done) {
       this.timeout(10000)
       const plugin = new Plugin({autodetect: false, glyphs: '\uF0C7'})
       const config = _.cloneDeep(baseConfig)
@@ -71,32 +71,42 @@ describe('FontminPlugin', () => {
 
     it('should minify eot', () => {
       const eot = _.find(fontStats, {extension: '.eot'})
-      expect(eot.stats.size).to.be.greaterThan(500).lessThan(2400)
+      expect(eot.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(2400)
     })
 
     it('should minify svg', () => {
       const svg = _.find(fontStats, {extension: '.svg'})
-      expect(svg.stats.size).to.be.greaterThan(500).lessThan(2000)
+      expect(svg.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(2000)
     })
 
     it('should minify tff', () => {
       const ttf = _.find(fontStats, {extension: '.ttf'})
-      expect(ttf.stats.size).to.be.greaterThan(500).lessThan(2200)
+      expect(ttf.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(2200)
     })
 
     it('should minify woff', () => {
       const woff = _.find(fontStats, {extension: '.woff'})
-      expect(woff.stats.size).to.be.greaterThan(500).lessThan(2300)
+      expect(woff.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(2300)
     })
 
     it('should minify woff2', () => {
       const woff2 = _.find(fontStats, {extension: '.woff2'})
-      expect(woff2.stats.size).to.be.greaterThan(500).lessThan(1000)
+      expect(woff2.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(1000)
     })
   })
 
   describe('FontAwesome inferred', () => {
-    it('should run successfully', function (done) {
+    it('should run successfully', function(done) {
       this.timeout(60000)
       testWithConfig(baseConfig, done)
     })
@@ -114,9 +124,9 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome full', () => {
-    it('should run successfully', function (done) {
+    it('should run successfully', function(done) {
       this.timeout(60000)
-      const plugin = new Plugin({autodetect: true})
+      const plugin = new Plugin({autodetect: false})
       const config = _.cloneDeep(baseConfig)
       testWithConfig(_.assign(config, {plugins: [plugin]}), done)
     })
@@ -131,7 +141,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome with ExtractTextPlugin', () => {
-    it('should run successfully', function (done) {
+    it('should run successfully', function(done) {
       this.timeout(60000)
       testWithConfig(baseExtractConfig, done)
     })
@@ -140,27 +150,37 @@ describe('FontminPlugin', () => {
 
     it('should minify eot', () => {
       const eot = _.find(fontStats, {extension: '.eot'})
-      expect(eot.stats.size).to.be.greaterThan(500).lessThan(7000)
+      expect(eot.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(7000)
     })
 
     it('should minify svg', () => {
       const svg = _.find(fontStats, {extension: '.svg'})
-      expect(svg.stats.size).to.be.greaterThan(500).lessThan(7000)
+      expect(svg.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(7000)
     })
 
     it('should minify tff', () => {
       const ttf = _.find(fontStats, {extension: '.ttf'})
-      expect(ttf.stats.size).to.be.greaterThan(500).lessThan(7000)
+      expect(ttf.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(7000)
     })
 
     it('should minify woff', () => {
       const woff = _.find(fontStats, {extension: '.woff'})
-      expect(woff.stats.size).to.be.greaterThan(500).lessThan(7000)
+      expect(woff.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(7000)
     })
 
     it('should minify woff2', () => {
       const woff2 = _.find(fontStats, {extension: '.woff2'})
-      expect(woff2.stats.size).to.be.greaterThan(500).lessThan(7000)
+      expect(woff2.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(7000)
     })
 
     it('should contain the right glyphs', () => {
