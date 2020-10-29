@@ -6,11 +6,13 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Dependencies](https://david-dm.org/patrickhulce/fontmin-webpack.svg)](https://david-dm.org/patrickhulce/fontmin-webpack)
 
-Minifies icon fonts to just what is used. Works best when paired with a CSS removal plugin such as [nukecss-webpack](https://github.com/patrickhulce/nukecss-webpack).
+Minifies icon fonts to just what is used.
 
 ```bash
-# for webpack 4
+# for webpack 5
 npm install --save-dev fontmin-webpack
+# for webpack 4
+npm install --save-dev fontmin-webpack@^2.0.1
 # for webpack <=3
 npm install --save-dev fontmin-webpack@^1.0.2
 ```
@@ -43,7 +45,6 @@ The example below uses glyphs `\uf0c7` and `\uf0ce`
 
 /**
  * Remove other unused icons from the file.
- * Or use another plugin like nukecss-webpack to remove unused rules automatically.
  */
 .fa-save:before,
 .fa-floppy-o:before {
