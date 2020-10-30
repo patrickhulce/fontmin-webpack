@@ -77,6 +77,8 @@ describe('FontminPlugin', () => {
     })
 
     it('should minify svg', () => {
+      const glyphs = getGlyphs()
+      expect(glyphs).to.eql(['save'])
       const svg = _.find(fontStats, {extension: '.svg'})
       expect(svg.stats.size)
         .to.be.greaterThan(500)
