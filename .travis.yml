@@ -8,7 +8,6 @@ notifications:
 node_js:
   - v12
   - v10
-  - v8
 before_install:
   - npm install -g coveralls @patrickhulce/scripts nyc
 script:
