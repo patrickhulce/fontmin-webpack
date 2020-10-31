@@ -16,4 +16,4 @@ script:
   - nyc npm run test:unit
 after_success:
   - nyc report --reporter=lcov | coveralls || echo 'Failed to upload to coveralls...'
-  - hulk npm-publish --yes
+  - hulk npm-publish --yes --node-version=v10
