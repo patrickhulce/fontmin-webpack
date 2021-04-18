@@ -14,8 +14,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'out.css',
-      allChunks: true,
+      filename: 'out.css'
     }),
     new HtmlWebpackPlugin(),
     new FontminPlugin(),
