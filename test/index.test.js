@@ -61,7 +61,7 @@ describe('FontminPlugin', () => {
   }
 
   describe('FontAwesome micro', () => {
-    it('should run successfully', function(done) {
+    it('should run successfully', function (done) {
       this.timeout(10000)
       const plugin = new Plugin({autodetect: false, glyphs: '\uF0C7'})
       const config = _.cloneDeep(baseConfig)
@@ -110,7 +110,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome inferred', () => {
-    it('should run successfully', function(done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       testWithConfig(baseConfig, done)
     })
@@ -128,7 +128,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome full', () => {
-    it('should run successfully', function(done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       const plugin = new Plugin({autodetect: false})
       const config = _.cloneDeep(baseConfig)
@@ -145,7 +145,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome with ExtractTextPlugin', () => {
-    it('should run successfully', function(done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       testWithConfig(baseExtractConfig, done)
     })
@@ -198,7 +198,7 @@ describe('FontminPlugin', () => {
   })
 
   describe('FontAwesome with multi-byte unicode characters', () => {
-    it('should run successfully', function(done) {
+    it('should run successfully', function (done) {
       this.timeout(60000)
       testWithConfig(baseUnicodeConfig, done)
     })

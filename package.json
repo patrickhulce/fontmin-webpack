@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
-    "@patrickhulce/lint": "^3.0.2",
+    "@patrickhulce/lint": "^2.1.3",
     "chai": "^4.3.0",
     "css-loader": "^5.0.2",
     "cz-conventional-changelog": "^3.3.0",
