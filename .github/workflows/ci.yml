@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request: # run on all PRs, not just PRs to a particular branch
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install --frozen-lockfile --network-timeout 1000000
+      - run: npm run start
+      - run: npm run test:lint
+      - run: npm run test:unit
