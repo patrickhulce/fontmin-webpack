@@ -38,6 +38,7 @@
     "webpack": "5.x"
   },
   "devDependencies": {
+    "@mdi/font": "^5.9.55",
     "@patrickhulce/lint": "^3.0.2",
     "chai": "^4.3.0",
     "css-loader": "^5.0.2",
