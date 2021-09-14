@@ -205,4 +205,38 @@ describe('FontminPlugin', () => {
 
     after(done => rimraf(DIST_FOLDER, done))
   })
+
+  describe('FontAwesome in allowed fonts list', () => {
+    it('should run successfully', function (done) {
+      this.timeout(60000)
+      const plugin = new Plugin({allowedFilesRegex: /^fontawesome/})
+      const config = _.cloneDeep(baseConfig)
+      testWithConfig(_.assign(config, {plugins: [plugin]}), done)
+    })
+
+    after(done => rimraf(DIST_FOLDER, done))
+
+    it('should minify font', () => {
+      const svg = _.find(fontStats, {extension: '.svg'})
+      const svgOriginal = _.find(originalStats, {extension: '.svg'})
+      expect(svg.stats.size).to.be.lessThan(svgOriginal.stats.size)
+    })
+  })
+
+  describe('FontAwesome in skipped fonts list', () => {
+    it('should run successfully', function (done) {
+      this.timeout(60000)
+      const plugin = new Plugin({skippedFilesRegex: /^fontawesome/})
+      const config = _.cloneDeep(baseConfig)
+      testWithConfig(_.assign(config, {plugins: [plugin]}), done)
+    })
+
+    after(done => rimraf(DIST_FOLDER, done))
+
+    it('should not minify font', () => {
+      const svg = _.find(fontStats, {extension: '.svg'})
+      const svgOriginal = _.find(originalStats, {extension: '.svg'})
+      expect(svg.stats.size).to.be.equal(svgOriginal.stats.size)
+    })
+  })
 })

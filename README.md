@@ -70,6 +70,9 @@ module.exports = {
     new FontminPlugin({
       autodetect: true, // automatically pull unicode characters from CSS
       glyphs: ['\uf0c8' /* extra glyphs to include */],
+      // note: these settings are mutually exclusive and allowedFilesRegex has priority over skippedFilesRegex
+      allowedFilesRegex: null, // RegExp to only target specific fonts by their names
+      skippedFilesRegex: null, // RegExp to skip specific fonts by their names
     }),
   ],
 }
