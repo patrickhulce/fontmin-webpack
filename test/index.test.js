@@ -239,4 +239,18 @@ describe('FontminPlugin', () => {
       expect(svg.stats.size).to.be.equal(svgOriginal.stats.size)
     })
   })
+
+  describe('FontAwesome with appendHash option', () => {
+    it('should run successfully', function (done) {
+      this.timeout(60000)
+      const plugin = new Plugin({appendHash: true})
+      const config = _.cloneDeep(baseConfig)
+      testWithConfig(_.assign(config, {plugins: [plugin]}), done)
+    })
+
+    it('should append the hash to the ends of all refrences in all assets', () => {
+      let out = fs.readFileSync(DIST_FOLDER + '/out.js').toString()
+      fontStats.forEach( file => expect( out.match( file.filename ) ).to.be.ok )
+    })
+  })
 })
