@@ -249,9 +249,9 @@ describe('FontminPlugin', () => {
     })
 
     it('should append the hash to the ends of all refrences in all assets', () => {
-      let out = fs.readFileSync(DIST_FOLDER + '/out.js').toString()
-      fontStats.forEach( file => expect( out.match( file.filename ) ).to.be.ok )
-      fontStats.forEach( file => expect( out.match( file.filename.replace( /\-([a-z]|[0-9])+\./, '.') ) ).to.not.be.ok )
+      const out = fs.readFileSync(DIST_FOLDER + '/out.js').toString()
+      fontStats.forEach(file => expect(out.match(file.filename)).to.be.ok)
+      fontStats.forEach(file => expect(out.match(file.filename.replace(/-([a-z]|[0-9])+\./, '.'))).to.not.be.ok)
     })
   })
 })
