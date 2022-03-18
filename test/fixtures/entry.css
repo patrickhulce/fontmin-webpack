@@ -30,6 +30,10 @@
   content: '\f0ce';
 }
 
+.custom-content {
+  content: '\f0'; /* ð */
+}
+
 .entry {
   background: white;
 }
