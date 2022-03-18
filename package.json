@@ -8,7 +8,7 @@
     "start:extract-text": "webpack --config test/fixtures/webpack.extract-text.config.js",
     "start:debug": "node --inspect --debug-brk ./node_modules/.bin/webpack --config test/fixtures/webpack.config.js",
     "test": "npm run test:lint && npm run test:unit",
-    "test:lint": "lint",
+    "test:lint": "lint node",
     "test:unit": "mocha --reporter spec test/*.test.js test/**/*.test.js",
     "test:watch": "mocha --watch --reporter dot test/*.test.js test/**/*.test.js"
   },
