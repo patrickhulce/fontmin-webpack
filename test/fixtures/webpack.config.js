@@ -5,7 +5,12 @@ module.exports = {
   output: {filename: 'out.js', path: `${__dirname}/dist`, publicPath: '/test/fixtures/dist/'},
   module: {
     rules: [
-      {test: /\.(woff|woff2)(\?v=.+)?$/, use: ['file-loader']},
+      {test: /\.(woff|woff2)(\?v=.+)?$/, use: {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[contenthash]',
+        },
+      }},
       {test: /\.(svg|ttf|eot|png)(\?v=.+)?$/, use: ['file-loader']},
       {test: /\.css$/, use: ['style-loader', 'css-loader'], include: __dirname},
     ],
