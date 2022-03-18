@@ -29,9 +29,8 @@
   },
   "dependencies": {
     "debug": "^4.3.1",
-    "fontmin": "^0.9.8",
+    "fontmin": "^0.9.9",
     "lodash": "^4.17.21",
-    "ttf2woff2": "^4.0.1",
     "webpack-sources": "^2.2.0"
   },
   "peerDependencies": {
