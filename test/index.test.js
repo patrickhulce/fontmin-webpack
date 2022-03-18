@@ -12,9 +12,9 @@ const FONT_AWESOME_FOLDER = path.join(__dirname, '../node_modules/font-awesome')
 
 describe('FontminPlugin', () => {
   let fontStats
-  const baseConfig = require('./fixtures/webpack.config.js')
-  const baseExtractConfig = require('./fixtures/webpack.extract-text.config.js')
-  const baseUnicodeConfig = require('./fixtures/webpack.unicode.config.js')
+  const baseConfig = require('./fixtures/webpack.config')
+  const baseExtractConfig = require('./fixtures/webpack.extract-text.config')
+  const baseUnicodeConfig = require('./fixtures/webpack.unicode.config')
   const originalStats = collectFontStats(FONT_AWESOME_FOLDER + '/fonts', {
     'fontawesome-webfont.eot': true,
     'fontawesome-webfont.ttf': true,
