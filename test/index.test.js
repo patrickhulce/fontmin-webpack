@@ -9,18 +9,26 @@ const Plugin = require('../lib')
 
 const DIST_FOLDER = path.join(__dirname, 'fixtures/dist/')
 const FONT_AWESOME_FOLDER = path.join(__dirname, '../node_modules/font-awesome')
+const CUSTOM_ICON_FOLDER = path.join(__dirname, 'fixtures/custom-icon')
 
 describe('FontminPlugin', () => {
   let fontStats
   const baseConfig = require('./fixtures/webpack.config')
   const baseExtractConfig = require('./fixtures/webpack.extract-text.config')
   const baseUnicodeConfig = require('./fixtures/webpack.unicode.config')
+  const customIconConfig = require('./fixtures/webpack.custom-icon.config')
   const originalStats = collectFontStats(FONT_AWESOME_FOLDER + '/fonts', {
     'fontawesome-webfont.eot': true,
     'fontawesome-webfont.ttf': true,
     'fontawesome-webfont.svg': true,
     'fontawesome-webfont.woff': true,
     'fontawesome-webfont.woff2': true,
+  })
+  const customIconOriginalStats = collectFontStats(CUSTOM_ICON_FOLDER, {
+    'custom-icon.eot': true,
+    'custom-icon.ttf': true,
+    'custom-icon.svg': true,
+    'custom-icon.woff': true,
   })
 
   function collectFontStats(directory, files) {
@@ -252,6 +260,59 @@ describe('FontminPlugin', () => {
       const out = fs.readFileSync(DIST_FOLDER + '/out.js').toString()
       fontStats.forEach(file => expect(out.match(file.filename)).to.be.ok)
       fontStats.forEach(file => expect(out.match(file.filename.replace(/-([a-z]|[0-9])+\./, '.'))).to.not.be.ok)
+    })
+  })
+
+  describe('Custom Icon pack', () => {
+    it('should run successfully', function (done) {
+      this.timeout(10000)
+      const plugin = new Plugin({autodetect: true})
+      const config = _.cloneDeep(customIconConfig)
+      testWithConfig(_.assign(config, {plugins: [plugin]}), done)
+    })
+
+    before(done => rimraf(DIST_FOLDER, done))
+    after(done => rimraf(DIST_FOLDER, done))
+
+    it('should contain the right glyphs', () => {
+      const glyphs = getGlyphs()
+      expect(glyphs).to.not.contain('cloud-lightning')
+      expect(glyphs).to.contain('coffee')
+      expect(glyphs).to.contain('plus')
+    })
+
+    it('should minify eot', () => {
+      const original = _.find(customIconOriginalStats, {extension: '.eot'})
+      const eot = _.find(fontStats, {extension: '.eot'})
+      expect(eot.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(original.stats.size)
+    })
+
+    it('should minify svg', () => {
+      const glyphs = getGlyphs()
+      expect(glyphs).to.eql(['plus', 'coffee'])
+      const original = _.find(customIconOriginalStats, {extension: '.svg'})
+      const svg = _.find(fontStats, {extension: '.svg'})
+      expect(svg.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(original.stats.size)
+    })
+
+    it('should minify tff', () => {
+      const original = _.find(customIconOriginalStats, {extension: '.ttf'})
+      const ttf = _.find(fontStats, {extension: '.ttf'})
+      expect(ttf.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(original.stats.size)
+    })
+
+    it('should minify woff', () => {
+      const original = _.find(customIconOriginalStats, {extension: '.woff'})
+      const woff = _.find(fontStats, {extension: '.woff'})
+      expect(woff.stats.size)
+        .to.be.greaterThan(500)
+        .lessThan(original.stats.size)
     })
   })
 })
