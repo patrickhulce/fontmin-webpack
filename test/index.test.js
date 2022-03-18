@@ -10,6 +10,10 @@ const Plugin = require('../lib')
 const DIST_FOLDER = path.join(__dirname, 'fixtures/dist/')
 const FONT_AWESOME_FOLDER = path.join(__dirname, '../node_modules/font-awesome')
 
+function getFilenameWithoutQueryString(filename) {
+  return filename.split('?', 2)[0]
+}
+
 describe('FontminPlugin', () => {
   let fontStats
   const baseConfig = require('./fixtures/webpack.config')
@@ -25,7 +29,8 @@ describe('FontminPlugin', () => {
 
   function collectFontStats(directory, files) {
     return _.keys(files)
-      .map(filename => {
+      .map(name => {
+        const filename = getFilenameWithoutQueryString(name)
         const filePath = `${directory}/${filename}`
         return {
           filename,
@@ -35,6 +40,7 @@ describe('FontminPlugin', () => {
         }
       })
       .filter(item => item.extension !== '.js')
+      .filter(item => item.filename !== 'OpenSans-Bold.ttf')
   }
 
   function getGlyphs() {
