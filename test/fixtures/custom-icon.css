@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'custom-icon';
+  src:  url('./custom-icon/custom-icon.eot');
+  src:  url('./custom-icon/custom-icon.eot#iefix') format('embedded-opentype'),
+    url('./custom-icon/custom-icon.ttf') format('truetype'),
+    url('./custom-icon/custom-icon.woff') format('woff'),
+    url('./custom-icon/custom-icon.svg#custom-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="custom-icon-"], [class*=" custom-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'custom-icon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.custom-icon-coffee:before {
+  content: "\e900";
+}
+
+.custom-icon-plus:before {
+  content: "\2b";
+}
