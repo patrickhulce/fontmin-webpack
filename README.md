@@ -80,6 +80,75 @@ module.exports = {
 }
 ```
 
+#### Use in Vue3
+
+In a Vue3 project PurgeCss needs to be executed as a Webpack plugin. 
+The easiest way to add Webpack plugins is to declare them in vue.config.js
+
+This is a sample for a project with Vue3 / Tailwindcss 3 / Fontawesome 6
+#### **`vue.config.js`**
+```js
+const webpackPlugins = [];
+const __DEBUG__='0'; //turn to 1 for avoiding purgecss and fontmin
+
+// **********************************
+// Purgecss unused classes
+//
+if (__DEBUG__ !== '1') {
+  const PurgecssPlugin = require('purgecss-webpack-plugin');
+  const glob = require('glob-all')
+  const purgeCssPlugin = new PurgecssPlugin({
+    paths: glob.sync(
+      [
+        path.join(__dirname, './public/*.html'),
+        path.join(__dirname, './src/**/*.vue'),
+        path.join(__dirname, './src/**/*.js')
+      ]),
+    safelist: [/^sm:/, /^md:/, /^lg:/, /^xl:/, /^2xl:/, /^focus:/, /^hover:/, /^group-hover:/, /\[.*\]/, /^basicLightbox/, /\/[0-9]/, /^tns/],
+    fontFace: true
+  })
+  webpackPlugins.push(purgeCssPlugin);
+}
+
+// **********************************
+// fontminifying Fontawesome
+//
+if (__DEBUG__ !== '1') {
+  const FontMinPlugin = require('fontmin-webpack');
+  const fontMinPlugin = new FontMinPlugin({
+    autodetect: true,
+    glyphs: [],
+    allowedFilesRegex: /^fa[srltdb]*-/, // RegExp to only target specific fonts by their names
+    skippedFilesRegex: null, // RegExp to skip specific fonts by their names
+    textRegex: /\.(js|css|html|vue)$/,  // RegExp for searching text reference
+    webpackCompilationHook: 'compilation', // Webpack compilation hook (for example PurgeCss webpack plugin use 'compilation' )
+  });
+  webpackPlugins.push(fontMinPlugin);
+}
+
+module.exports = {
+   runtimeCompiler: true,
+   configureWebpack: {
+    plugins: webpackPlugins,
+    devtool: false,
+    mode: 'production',
+  },
+};
+```
+
+Obviously the required dependencies must be added in package.json
+#### **`package.json`**
+```json
+"devDependencies": {
+…
+    "fontmin-webpack": "^4.0.0",
+    "glob-all": "^3.3.0",
+    "purgecss-webpack-plugin": "^4.1.3",
+    "webpack": "^5.71.0",
+…
+}
+```
+
 #### Save Bytes
 
 **Before**
