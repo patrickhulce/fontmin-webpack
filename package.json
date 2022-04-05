@@ -1,6 +1,6 @@
 {
   "name": "fontmin-webpack",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Minifies icon fonts to just what is used.",
   "main": "./lib/index.js",
   "scripts": {
