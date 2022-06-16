@@ -73,6 +73,7 @@ module.exports = {
       // note: these settings are mutually exclusive and allowedFilesRegex has priority over skippedFilesRegex
       allowedFilesRegex: null, // RegExp to only target specific fonts by their names
       skippedFilesRegex: null, // RegExp to skip specific fonts by their names
+      fontRegex: /\.(eot|ttf|svg|woff|woff2)(\?.+)?$/, // RegExp for searching font files
       textRegex: /\.(js|css|html)$/,  // RegExp for searching text reference
       webpackCompilationHook: 'thisCompilation', // Webpack compilation hook (for example PurgeCss webpack plugin use 'compilation' )
     }),
